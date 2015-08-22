@@ -2,7 +2,7 @@
 //  全局变量
 var score = 0;   // 玩家分数
 var board = new Array();  // 存放页面布局数据
-
+var hasConflicted  = new Array();	// 来判断该位置是否已经重叠过
 window.onload = function() {
 	newGame();
 }
@@ -27,8 +27,10 @@ function init() {
 	// 创建一个二维数组来存放数据
 	for(var i = 0; i < 4; i++) {
 		board[i] = new Array();
+		hasConflicted[i] = new Array();
 		for(var j = 0; j < 4; j++) {
 			board[i][j] = 0;          // 初始化二维数组
+			hasConflicted[i][j] = false;
 		}
 	}
 	updateBoardView();
@@ -75,6 +77,7 @@ function updateBoardView() {
 				theNumberCell.css("background-color", getNumberBackgroundColor(board[i][j] ));    // 背景颜色和数字有关系
 				theNumberCell.css("color", getNumberColor(board[i][j]));					// 设置字体的颜色 字体颜色随着数字大小的变化而变化
 			}
+			hasConflicted[i][j] = false;
 		}
 	} 
 		
