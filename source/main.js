@@ -82,3 +82,68 @@ function updateBoardView() {
 	} 
 		
 }
+// 响应用户的按键 移动数字
+$(document).keydown(function (ev) {
+	switch(ev.keyCode) {
+		case 37:  // left
+			if(moveLeft()) {		// 先判断是否可以向左移动 然后进行移动 如果移动成功了就返回true
+				setTimeout("generateOneCell(),isGameOver()",100);	// 移动后判断随机生成一个数字
+			}
+			break;
+		case 38:  // up
+			if(moveUp()) {
+			setTimeout(	"generateOneCell(),isGameOver()",100);
+			}
+			break;
+		case 39:  // right
+			if(moveRight()) {
+				setTimeout(	"generateOneCell(),isGameOver()",100);
+			}
+			break;
+		case 40:  // down
+			if(moveDown()) {
+			setTimeout(	"generateOneCell(),isGameOver()",100);
+			}
+			break;
+		default: 
+			break;
+	}
+});
+// 获取方格位置,返回数组[left,top]
+function getPos(i, j) {
+		return [20 + 120 * j , 20 + 120 * i];
+}
+
+
+
+
+//  row 表示方格所在的行  
+// 	col1  表示靠左边的方格(将要移入的位置)
+//  col2  表示靠右边的方格(要移动的方格)
+function noHorizontalBlock(row, col1, col2, board) {
+	for( var i= col1 + 1; i< col2; i++) {
+		if(board[row][i] != 0) 
+			return false;
+	}
+	return true;
+}
+//	col 表示当前想要比较方格所在的列数
+//	row1 起点的数字所在的行数
+// 	row2 终点的数字所在的行数
+function noVerticalBlock(col, row1, row2) {
+	for( var i= row1 + 1; i< row2; i++) {
+		if(board[i][col] != 0)
+			return false;
+	}
+	return true;
+}
+
+// 判断游戏中是否还有空格,返回false,就表示还有空格
+function noSpace() {
+	for(var i= 0; i< 4; i++) 
+		for(var j= 0; j< 4; j++) 
+			if(board[i][j] == 0)
+				return false;   
+	return true;
+}
+
