@@ -199,12 +199,12 @@ function moveDown() {
 		for(var i= 2; i>= 0; i--) {
 			if(board[i][j] != 0) {
 					for(var k= 3; k> i; k--) {
-					if( board[k][j] == 0 && noVerticalBlock(j, k, i)) {
+					if( board[k][j] == 0 && noVerticalBlock(j, i, k)) {
 						showMoveAnimation(i, j, k, j);
 						board[k][j] = board[i][j];
 						board[i][j] = 0;
 						break;
-					} else if (board[k][j] == board[i][j] && noVerticalBlock(j, k, i) && !hasConflicted[k][j]) {
+					} else if (board[k][j] == board[i][j] && noVerticalBlock(j, i, k) && !hasConflicted[k][j]) {
 						showMoveAnimation(i, j, k, j);
 						board[k][j] += board[i][j];
 						board[i][j] = 0;
